@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.seriousmonkey.messagesync">
+
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <!--  发送消息-->
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <!--  阅读消息-->
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.READ_CELL_BROADCASTS" />
+    <!--  写入消息-->
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <!-- 接收消息 -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_WAP_PUSH" />
+    <uses-permission android:name="android.permission.RECEIVE_MMS" />
+    <!--  网络  -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+
+    <application
+            android:name=".BaseApplication"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/GadgetbridgeTheme">
+        <activity
+                android:name=".ui.activity.DebugActivity"
+                android:label="@string/title_activity_debug"
+                android:parentActivityName=".main.MainActivity">
+        </activity>
+        <activity
+                android:name=".ui.activity.AboutActivity"
+                android:label="@string/title_activity_about"
+                android:parentActivityName=".main.MainActivity">
+        </activity>
+        <activity
+                android:name=".ui.activity.DbManagementActivity"
+                android:label="@string/title_activity_dbmanagement"
+                android:parentActivityName=".main.MainActivity">
+        </activity>
+        <activity
+                android:name=".ui.activity.SettingsActivity"
+                android:label="@string/title_activity_settings"
+                android:parentActivityName=".main.MainActivity">
+        </activity>
+
+        <service
+                android:name=".service.SMSObserver"
+                android:enabled="true"
+                android:exported="true">
+        </service>
+
+        <activity
+                android:name=".main.MainActivity"
+                android:launchMode="singleTask"
+                android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <receiver
+                android:name=".receiver.SmsReceiver"
+                android:enabled="true"
+                android:exported="true"
+
+                android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter
+                android:priority="1000">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
